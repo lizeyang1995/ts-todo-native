@@ -1,5 +1,6 @@
 import TodoTemplate from "./TodoTemplate"
 import { ITodoData } from "./typing"
+import { findParentNode } from "./utils"
 
 class TodoDom extends TodoTemplate {
     private todoWrapper: HTMLElement
@@ -13,6 +14,11 @@ class TodoDom extends TodoTemplate {
         oItem.className = 'todo-item'
         oItem.innerHTML = this.todoView(todo)
         this.todoWrapper.appendChild(oItem)
+    }
+
+    protected removeItem(target: HTMLElement) {
+        const oParentNode = findParentNode(target, 'todo-item')
+        oParentNode.remove();
     }
 }
 
