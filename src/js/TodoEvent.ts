@@ -14,20 +14,23 @@ class TodoEvent extends TodoDom  {
 
         if (!_todo) {
             this.todoData.push(todo)
+            this.addItem(todo)
             return
         }
 
         return 404
     }
 
-    public removeTodo(id: number): void {
+    public removeTodo(target: HTMLElement, id: number): void {
         this.todoData = this.todoData.filter((todo: ITodoData) => todo.id !== id)
+        this.removeItem(target)
     }
 
-    public toggleComplete(id: number): void {
+    public toggleComplete(target: HTMLElement, id: number): void {
         this.todoData = this.todoData.map((todo: ITodoData) => {
             if (todo.id === id) {
                 todo.completed = !todo.completed
+                this.changeCompleted(target, todo.completed)
             }
             return todo
         })
