@@ -18,12 +18,17 @@ class TodoEvent {
         return 404
     }
 
-    public removeTodo() {
-
+    public removeTodo(id: number): void {
+        this.todoData = this.todoData.filter((todo: ITodoData) => todo.id !== id)
     }
 
-    public toggleComplete() {
-
+    public toggleComplete(id: number): void {
+        this.todoData = this.todoData.map((todo: ITodoData) => {
+            if (todo.id === id) {
+                todo.completed = !todo.completed
+            }
+            return todo
+        })
     }
 }
 
