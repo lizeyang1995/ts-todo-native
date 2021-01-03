@@ -9,7 +9,10 @@ class TodoDom extends TodoTemplate {
     }
 
     protected addItem(todo: ITodoData) {
-
+        const oItem: HTMLElement = document.createElement('div')
+        oItem.className = 'todo-item'
+        oItem.innerHTML = this.todoView(todo)
+        this.todoWrapper.appendChild(oItem)
     }
 }
 
