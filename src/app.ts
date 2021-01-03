@@ -41,6 +41,7 @@ import { ITodoData } from "./js/typing"
                 content: '999',
                 completed: false
             })
+            console.log(todoEvent);
         }
 
         function handleListClick(e: MouseEvent): void {
