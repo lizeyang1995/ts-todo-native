@@ -1,9 +1,11 @@
+import TodoDom from "./TodoDom"
 import { ITodoData } from "./typing"
 
 //操作数据
-class TodoEvent {
+class TodoEvent extends TodoDom  {
     private todoData: ITodoData[]
-    constructor(todoData: ITodoData[]) {
+    constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
+        super(todoWrapper)
         this.todoData = todoData
     }
 
