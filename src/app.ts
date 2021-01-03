@@ -1,3 +1,4 @@
+import TodoEvent from "./js/TodoEvent";
 import { ITodoData } from "./js/typing"
 
     ; ((doc) => {
@@ -23,6 +24,8 @@ import { ITodoData } from "./js/typing"
             },
         ]
 
+        const todoEvent: TodoEvent = new TodoEvent(todoData)
+
         const init = (): void => {
             bindEvent()
         }
@@ -33,11 +36,27 @@ import { ITodoData } from "./js/typing"
         }
 
         function handleAddBtnClick(): void {
-
+            todoEvent.addTodo(<ITodoData>{
+                id: 4,
+                content: '999',
+                completed: false
+            })
         }
 
         function handleListClick(e: MouseEvent): void {
+            const tar = e.target as HTMLElement
+            const tagName = tar.tagName
 
+            if (tagName === 'input' || tagName === 'button') {
+                switch (tagName){
+                    case 'input':
+                        break;
+                    case 'button':
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         init()
