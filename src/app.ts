@@ -2,7 +2,7 @@ import TodoEvent from "./js/TodoEvent";
 import { ITodoData } from "./js/typing"
 
     ; ((doc) => {
-        const oInput: HTMLElement = document.querySelector('input')
+        const oInput: HTMLInputElement = document.querySelector('input')
         const oAddBtn: HTMLElement = document.querySelector('button')
         const oTodoList: HTMLElement = document.querySelector('.todo-list')
 
@@ -24,7 +24,7 @@ import { ITodoData } from "./js/typing"
             },
         ]
 
-        const todoEvent: TodoEvent = new TodoEvent(todoData)
+        const todoEvent: TodoEvent = new TodoEvent(todoData, oTodoList)
 
         const init = (): void => {
             bindEvent()
@@ -36,12 +36,18 @@ import { ITodoData } from "./js/typing"
         }
 
         function handleAddBtnClick(): void {
-            todoEvent.addTodo(<ITodoData>{
-                id: 4,
-                content: '999',
-                completed: false
-            })
-            console.log(todoEvent);
+            const val: string = oInput.value.trim()
+            if (val.length) {
+                const ret = todoEvent.addTodo(<ITodoData>{
+                    id: 4,
+                    content: val,
+                    completed: false
+                })
+                if (ret && ret === 404) {
+                    alert('列表项已经存在')
+                    return
+                }
+            }
         }
 
         function handleListClick(e: MouseEvent): void {
@@ -49,7 +55,7 @@ import { ITodoData } from "./js/typing"
             const tagName = tar.tagName
 
             if (tagName === 'input' || tagName === 'button') {
-                switch (tagName){
+                switch (tagName) {
                     case 'input':
                         break;
                     case 'button':
