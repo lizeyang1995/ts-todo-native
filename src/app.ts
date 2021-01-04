@@ -47,18 +47,22 @@ import { ITodoData } from "./js/typing"
                     alert('列表项已经存在')
                     return
                 }
+                oInput.value = ''
             }
         }
 
         function handleListClick(e: MouseEvent): void {
             const tar = e.target as HTMLElement
-            const tagName = tar.tagName
+            const tagName = tar.tagName.toLocaleLowerCase()
 
             if (tagName === 'input' || tagName === 'button') {
+                const id = parseInt(tar.dataset.id)
                 switch (tagName) {
                     case 'input':
+                        todoEvent.toggleComplete(tar, id)
                         break;
                     case 'button':
+                        todoEvent.removeTodo(tar, id)
                         break;
                     default:
                         break;
