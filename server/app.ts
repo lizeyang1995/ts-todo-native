@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import bodyParse from 'body-parser'
+import { readFile } from './utils';
 
 const app: Application = express();
 
@@ -14,7 +15,9 @@ app.all('*', (req, res, next) => {
 })
 
 app.get('/todolist', function(req, res) {
-
+    //读取todo.json响应给前端
+    const todoList: string = readFile('todo.json')
+    res.send(todoList)
 })
 
 app.post('/toggle', function(req, res) {
