@@ -5,3 +5,10 @@ export function findParentNode(target: HTMLElement, className: string): HTMLElem
         }
     }
 }
+
+export function createItem(tagName: string, className: string, todoItem: string) {
+    const oItem: HTMLElement = document.createElement(tagName)
+    oItem.className = className
+    oItem.innerHTML = todoItem
+    return oItem
+}
