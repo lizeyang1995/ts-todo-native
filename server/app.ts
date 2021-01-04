@@ -57,7 +57,7 @@ app.post('/add', function (req, res) {
                 msg: 'exist',
                 statusCode: '100'
             })
-            return
+            return todoList
         }
         todoList.push(todo)
         return todoList
