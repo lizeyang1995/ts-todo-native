@@ -9,7 +9,7 @@ export function getTodoList(
     target: any,
     methodName: string,
     descriptor: PropertyDescriptor
-) {
+): void {
     const _origin = descriptor.value//先保存原先的init函数
     //重写init函数，是为了先发请求，给todoData赋上res的json对象，然后再把todoData传给原来的init函数
     descriptor.value = function (todoData: ITodoData[]) {
@@ -20,6 +20,19 @@ export function getTodoList(
             todoData = JSON.parse(res)
         }).then(() => {
             _origin.call(this, todoData)
+        })
+    }
+}
+
+export function removeTodo(
+    target: any,
+    methodName: string,
+    descriptor: PropertyDescriptor
+): void {
+    const _origin = descriptor.value
+    descriptor.value = function (taget: HTMLElement, id: number) {
+        $.post('http://localhost:8080/remove', { id }).then(res => {
+            _origin.call(this, target, id)
         })
     }
 }

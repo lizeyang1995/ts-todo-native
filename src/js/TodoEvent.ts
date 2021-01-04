@@ -1,5 +1,5 @@
 import TodoDom from "./TodoDom"
-import { getTodoList } from "./TodoService"
+import { getTodoList, removeTodo } from "./TodoService"
 import { ITodoData } from "./typing"
 
 //操作数据
@@ -28,7 +28,7 @@ class TodoEvent extends TodoDom  {
 
         return 404
     }
-
+    @removeTodo
     public removeTodo(target: HTMLElement, id: number): void {
         this.todoData = this.todoData.filter((todo: ITodoData) => todo.id !== id)
         this.removeItem(target)
