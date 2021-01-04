@@ -1,4 +1,5 @@
 import TodoDom from "./TodoDom"
+import { getTodoList } from "./TodoService"
 import { ITodoData } from "./typing"
 
 //操作数据
@@ -7,10 +8,12 @@ class TodoEvent extends TodoDom  {
     constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
         super(todoWrapper)
         this.todoData = todoData
-        this.init()
+        this.init(this.todoData)
     }
 
-    private init() {
+    @getTodoList //添加一个装饰器，先去请求数据，拿到的数据todoData传给init，然后init再去执行下面的程序，这样子this.todoData就有后端回来的数据了
+    private init(todoData: ITodoData[]) {
+        this.todoData = todoData
         this.initList(this.todoData)
     }
 
