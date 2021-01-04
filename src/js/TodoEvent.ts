@@ -1,5 +1,5 @@
 import TodoDom from "./TodoDom"
-import { getTodoList, removeTodo } from "./TodoService"
+import { getTodoList, removeTodo, toggleComplete } from "./TodoService"
 import { ITodoData } from "./typing"
 
 //操作数据
@@ -34,6 +34,7 @@ class TodoEvent extends TodoDom  {
         this.removeItem(target)
     }
 
+    @toggleComplete
     public toggleComplete(target: HTMLElement, id: number): void {
         this.todoData = this.todoData.map((todo: ITodoData) => {
             if (todo.id === id) {

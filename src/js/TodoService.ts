@@ -36,3 +36,16 @@ export function removeTodo(
         })
     }
 }
+
+export function toggleComplete(
+    target: any,
+    methodName: string,
+    descriptor: PropertyDescriptor
+): void {
+    const _origin = descriptor.value
+    descriptor.value = function (target: HTMLElement, id: number) {
+        $.post('http://localhost:8080/toggle', { id }).then(res => {
+            _origin.call(this, target, id)
+        })
+    }
+}
