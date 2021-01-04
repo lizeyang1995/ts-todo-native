@@ -1,6 +1,6 @@
 import express, { Application } from 'express';
 import bodyParse from 'body-parser'
-import { readFile, writeFile } from './utils';
+import { fileOperation, readFile, writeFile } from './utils';
 import { ITodoData } from '../src/js/typing';
 
 const app: Application = express();
@@ -17,7 +17,7 @@ app.all('*', (req, res, next) => {
 
 app.get('/todolist', function (req, res) {
     //读取todo.json响应给前端
-    const todoList: string = readFile('todo.json')
+    const todoList: string = fileOperation('todo.json') as string
     res.send(todoList)
 })
 
@@ -27,9 +27,13 @@ app.post('/toggle', function (req, res) {
 
 app.post('/remove', function (req, res) {
     const id: number = parseInt(req.body.id)
-    let todoList: ITodoData[] = JSON.parse(readFile('todo.json') || '[]')//如果todo.json里面没有东西，则给他空数组
-    todoList = todoList.filter((todo: ITodoData) => todo.id !== id)
-    writeFile('todo.json', todoList)
+    fileOperation('todo.json', function(todoList: ITodoData[]) {
+        return todoList.filter((todo: ITodoData) => todo.id !== id)
+    })
+    res.send({
+        msg: 'ok',
+        statusCode: '200'
+    })
 })
 
 app.post('/add', function (req, res) {
