@@ -39,7 +39,7 @@ import { ITodoData } from "./js/typing"
             const val: string = oInput.value.trim()
             if (val.length) {
                 const ret = todoEvent.addTodo(<ITodoData>{
-                    id: 4,
+                    id: todoEvent.todoData.length + 1,
                     content: val,
                     completed: false
                 })

@@ -1,10 +1,10 @@
 import TodoDom from "./TodoDom"
-import { getTodoList, removeTodo, toggleComplete } from "./TodoService"
+import { getTodoList, removeTodo, toggleComplete, addTodo } from "./TodoService"
 import { ITodoData } from "./typing"
 
 //操作数据
 class TodoEvent extends TodoDom  {
-    private todoData: ITodoData[]
+    public todoData: ITodoData[]
     constructor(todoData: ITodoData[], todoWrapper: HTMLElement) {
         super(todoWrapper)
         this.todoData = todoData
@@ -17,6 +17,7 @@ class TodoEvent extends TodoDom  {
         this.initList(this.todoData)
     }
 
+    @addTodo
     public addTodo(todo: ITodoData): undefined | number {
         const _todo: null | ITodoData = this.todoData.find((item: ITodoData) => item.content === todo.content)
 
